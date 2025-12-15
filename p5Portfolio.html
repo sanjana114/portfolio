@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanjana Singh — P5.js Portfolio</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: #fafafa;
+      color: #222;
+    }
+
+    /* ---------- HEADER ---------- */
+ /* ---------- HEADER ---------- */
+header {
+  height: 100vh;
+  background-image: url("Cover.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  position: relative;
+  color: rgb(255, 255, 255);
+}
+
+/* Black overlay for better readability */
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.552); /* semi-transparent black */
+  z-index: 0; /* behind text */
+}
+
+header h1,
+header p {
+  z-index: 1; /* bring text above overlay */
+  margin: 0;
+}
+
+
+    /* ---------- NAV ---------- */
+    nav {
+      background: rgb(24, 0, 52);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      color: #d9d9d9;
+    }
+
+    /* ---------- SECTIONS ---------- */
+    section {
+      padding: 100px 10%; /* Equal spacing top and bottom for all sections */
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    section p {
+      line-height: 1.6;
+      max-width: 700px;
+      margin-bottom: 10px;
+    }
+
+    section img {
+      max-width: 100%;
+      border-radius: 12px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ---------- ABOUT ME FLEX ---------- */
+    .about-container {
+      display: flex;
+      align-items: flex-start; /* align text top with image top */
+      gap: 40px;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-text h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .about-text p {
+      margin-top: 0;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .about-image img {
+      width: 420px;
+      max-width: 100%;
+      border-radius: 12px;
+    }
+
+    /* ---------- PROJECTS GRID ---------- */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .project-card {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
+      transition: 0.3s;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .project-thumbnail {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      background: #eee;
+    }
+
+    .project-card h4 {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    /* ---------- MODAL ---------- */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 20;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(6px);
+      background: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 700px;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.1);
+      position: relative;
+      text-align: center;
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0.6;
+    }
+
+    iframe {
+      width: 100%;
+      height: 380px;
+      border: none;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .open-project-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: black;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 30px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header id="home">
+    <h1>Sanjana Singh</h1>
+    <br>
+    <p>Interactive Media Designer • Design For Belongingness</p>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- ABOUT SECTION -->
+  <section id="about">
+    <div class="about-container">
+      <div class="about-text">
+        <h2>About Me</h2>
+        <p>
+          Hi, I’m Sanjana!! A creative coder and designer crafting playful, human-centered,
+          and culturally grounded interactive experiences. I draw inspiration from stories,
+          emotions, and the subtle textures of everyday life. My work blends contemporary
+          digital expression with cultural nuance, using tools like P5.js to explore
+          interaction, imagination, and sensory engagement.
+        </p>
+      </div>
+      <div class="about-image">
+        <img src="About Me.jpeg" />
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects">
+    <h2>P5.js Projects</h2>
+    <div class="project-grid">
+      <div class="project-card" onclick="openModal(0)">
+        <img class="Lost and Found.png" />
+        <h4>Lost and Found</h4>
+      </div>
+      <div class="project-card" onclick="openModal(1)">
+        <img class="Face Genrator.png" />
+        <h4>Face Generator</h4>
+      </div>
+      <div class="project-card" onclick="openModal(2)">
+        <img class="Experimental Clock.png" />
+        <h4>Experimental Clock</h4>
+      </div>
+      <div class="project-card" onclick="openModal(3)">
+        <img class="Happy Helloween.png" />
+        <h4>Happy Helloween</h4>
+      </div>
+      <div class="project-card" onclick="openModal(4)">
+        <img class="Optical Illusion.png" />
+        <h4>Optical Illusion</h4>
+      </div>
+      <div class="project-card" onclick="openModal(5)">
+        <img class="Data Visulalisation.png" />
+        <h4>Data Visualization</h4>
+      </div>
+      <div class="project-card" onclick="openModal(6)">
+        <img class="Game.png" />
+        <h4>The Food Crave</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
+      <a id="modalLink" class="open-project-btn" target="_blank">Open Project</a>
+      <iframe id="modalFrame"></iframe>
+    </div>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p><strong>Email:</strong> sings678@newschool.edu</p>
+    <p><strong>Phone:</strong> +1 (718) 200-0194</p>
+    <p>
+      <strong>LinkedIn:</strong>
+      <a href="https://www.linkedin.com/in/sanjana-singh-7a78a71b7/" target="_blank">
+        Visit Profile
+      </a>
+    </p>
+  </section>
+
+  <footer>
+    © 2025 Sanjana Singh — P5.js Portfolio
+  </footer>
+
+  <!-- JAVASCRIPT FOR MODAL -->
+  <script>
+    const projectData = [
+      {title: "Lost and Found", desc: "An emotionally driven interactive sketch exploring memory and discovery.", link: "https://editor.p5js.org/Sanjana_Singh/full/h03k3e-wS", embed: "https://editor.p5js.org/Sanjana_Singh/full/h03k3e-wS"},
+      {title: "Face Generator", desc: "Interactive digital portraits where expressions shift with cursor movement.", link: "https://editor.p5js.org/Sanjana_Singh/full/frfBE4rLo", embed: "https://editor.p5js.org/Sanjana_Singh/full/frfBE4rLo"},
+      {title: "Experimental Clock", desc: "An interactive exploration of time using earthen lamps, inspired by traditional Indian village practices.", link: "https://editor.p5js.org/Sanjana_Singh/full/aHNfCMGtN", embed: "https://editor.p5js.org/Sanjana_Singh/full/aHNfCMGtN"},
+      {title: "Happy Helloween", desc: "A composite artwork merging three distinct drawings into a single composition.", link: "https://editor.p5js.org/Sanjana_Singh/full/pGiVDbNdI", embed: "https://editor.p5js.org/Sanjana_Singh/full/pGiVDbNdI"},
+      {title: "Optical Illusion", desc: "A generative exploration of optical illusions through interactive forms.", link: "https://editor.p5js.org/Sanjana_Singh/full/a_lnLeDLY", embed: "https://editor.p5js.org/Sanjana_Singh/full/a_lnLeDLY"},
+      {title: "Data Visualization", desc: "A data-driven visual experiment mapping my Instagram usage over time.", link: "https://editor.p5js.org/Sanjana_Singh/full/jG8NSy7cg", embed: "https://editor.p5js.org/Sanjana_Singh/full/jG8NSy7cg"},
+      {title: "Game", desc: "An interactive exploration of how personal choices shape well-being.", link: "https://editor.p5js.org/Sanjana_Singh/full/ozEyPFWC2", embed: "https://editor.p5js.org/Sanjana_Singh/full/ozEyPFWC2"}
+    ];
+
+    const modal = document.getElementById("projectModal");
+
+    function openModal(index) {
+      document.getElementById("modalTitle").innerText = projectData[index].title;
+      document.getElementById("modalDesc").innerText = projectData[index].desc;
+      document.getElementById("modalLink").href = projectData[index].link;
+      document.getElementById("modalFrame").src = projectData[index].embed;
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+      document.getElementById("modalFrame").src = "";
+    }
+  </script>
+
+</body>
+</html>
